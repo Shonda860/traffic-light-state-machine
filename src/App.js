@@ -36,12 +36,13 @@ const App = () => {
         service.start();
 
         service.onTransition(state => {
-            console.log(state);
-            // Your code here to change lightStatus when the 
-            //   state of the state machine changes
-            return state.value === "green" ? setLightStatus(GREEN_LIGHT) : state.value == "yellow" ? setLightStatus(YELLOW_LIGHT) : setLightStatus(RED_LIGHT);
+                console.log(state);
+                // Your code here to change lightStatus when the 
+                //   state of the state machine changes
+                return state.value === "green" ? setLightStatus(GREEN_LIGHT) : state.value == "yellow" ? setLightStatus(YELLOW_LIGHT) : setLightStatus(RED_LIGHT);
+            }
 
-        });
+        );
     }, [])
 
     const changeLight = () => {
@@ -54,19 +55,19 @@ const App = () => {
         <
         header className = "App-header" >
         <
-        /header> <
+        /header>  <
         main >
         <
         div >
         <
         TrafficLight {...lightStatus }
-        /> <
-        /div> <
+        />  <
+        /div>  <
         div >
         <
-        button onClick = { changeLight } > Change < /button> <
+        button onClick = { changeLight } > Change < /button>  <
         /div> <
-        /main> <
+        /main>  <
         /div>
     );
 }
