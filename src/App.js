@@ -5,63 +5,70 @@ import './App.css';
 
 // Constants to use when changing the light
 const RED_LIGHT = {
-  RedOn: true,
-  YellowOn: false,
-  GreenOn: false,
+    RedOn: true,
+    YellowOn: false,
+    GreenOn: false,
 }
 
 const YELLOW_LIGHT = {
-  RedOn: false,
-  YellowOn: true,
-  GreenOn: false,
+    RedOn: false,
+    YellowOn: true,
+    GreenOn: false,
 }
 
 const GREEN_LIGHT = {
-  RedOn: false,
-  YellowOn: false,
-  GreenOn: true,
+    RedOn: false,
+    YellowOn: false,
+    GreenOn: true,
 }
 
 
 const App = () => {
-  // Initially the light is Green
-  const [lightStatus, setLightStatus] = useState({
-    RedOn: false,
-    YellowOn: false,
-    GreenOn: true,
-  });
-
-  // Run once to setup the state machine
-  useEffect(() => {
-    service.start();
-
-    service.onTransition(state => {
-      console.log(state);
-      // Your code here to change lightStatus when the 
-      //   state of the state machine changes
-
+    // Initially the light is Green
+    const [lightStatus, setLightStatus] = useState({
+        RedOn: false,
+        YellowOn: false,
+        GreenOn: true,
     });
-  }, [])
 
-  const changeLight = () => {
-    console.log('changing');
-    service.send('changeLight');
-  }
+    // Run once to setup the state machine
+    useEffect(() => {
+        service.start();
 
-  return (
-    <div className="App">
-      <header className="App-header">
-      </header>
-      <main>
-        <div>
-          <TrafficLight {...lightStatus} />
-        </div>
-        <div>
-          <button onClick={changeLight}>Change</button>
-        </div>
-      </main>
-    </div>
-  );
+        service.onTransition(state => {
+            console.log(state);
+            // Your code here to change lightStatus when the 
+            //   state of the state machine changes
+            return state.value === "green" ? setLightStatus(GREEN_LIGHT) : state.value == "yellow" ? setLightStatus(YELLOW_LIGHT) : setLightStatus(RED_LIGHT);
+
+        });
+    }, [])
+
+    const changeLight = () => {
+        console.log('changing');
+        service.send('changeLight');
+    }
+
+    return ( <
+        div className = "App" >
+        <
+        header className = "App-header" >
+        <
+        /header> <
+        main >
+        <
+        div >
+        <
+        TrafficLight {...lightStatus }
+        /> <
+        /div> <
+        div >
+        <
+        button onClick = { changeLight } > Change < /button> <
+        /div> <
+        /main> <
+        /div>
+    );
 }
 
 export default App;
